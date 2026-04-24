@@ -1,9 +1,33 @@
 const express = require('express');
 const cors = require('cors');
 
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsdoc = require("swagger-jsdoc");
+
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "BFHL API",
+      version: "1.0.0",
+      description: "API documentation for BFHL project"
+    },
+    servers: [
+      {
+        url: "http://localhost:3000"
+      }
+    ]
+  },
+  apis: ["./server.js"],
+};
+
+const specs = swaggerJsdoc(options);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 const USER_ID = "gautam_24042006";
 const EMAIL_ID = "gautam@example.edu";
@@ -132,6 +156,12 @@ function findGroups(edges) {
   return groups;
 }
 
+const PORT = 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
+
 function findRootsInGroup(edges) {
   const parents = new Set();
   const children = new Set();
@@ -201,6 +231,28 @@ function calculateDepth(tree) {
   
   return getDepth(tree);
 }
+
+/**
+ * @swagger
+ * /bfhl:
+ *   post:
+ *     summary: Process node relationships
+ *     description: Accepts array of edges and returns hierarchy analysis
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               data:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *     responses:
+ *       200:
+ *         description: Successful response
+ */
 
 app.post('/bfhl', (req, res) => {
   const { data } = req.body;

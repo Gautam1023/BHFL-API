@@ -159,6 +159,30 @@ function calculateDepth(tree) {
   return getDepth(tree);
 }
 
+
+/**
+ * @swagger
+ * /bfhl:
+ *   post:
+ *     summary: Process node relationships
+ *     description: Accepts array of edges and returns hierarchy analysis
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               data:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *     responses:
+ *       200:
+ *         description: Successful response
+ */
+
+
 app.post('/bfhl', (req, res) => {
   const { data } = req.body;
   
