@@ -59,40 +59,6 @@ function detectCycle(edges) {
   return false;
 }
 
-function buildTree(edges) {
-  const tree = {};
-  const children = new Set();
-  const parents = new Set();
-  const firstParent = {};
-  
-  edges.forEach(edge => {
-    const [parent, child] = edge.split('->');
-    parents.add(parent);
-    children.add(child);
-    
-    if (!firstParent[child]) {
-      firstParent[child] = parent;
-    }
-    
-    if (!tree[parent]) tree[parent] = {};
-    if (!tree[parent][child]) {
-      tree[parent][child] = {};
-    }
-  });
-  
-  return { tree, children, parents, firstParent };
-}
-
-function getRootNodes(parents, children) {
-  const roots = [];
-  for (const p of parents) {
-    if (!children.has(p)) {
-      roots.push(p);
-    }
-  }
-  return roots;
-}
-
 function findGroups(edges) {
   const allNodes = new Set();
   const adjList = {};
@@ -163,15 +129,6 @@ function findRootsInGroup(edges) {
 }
 
 function buildNestedTree(edges, root) {
-  const childToParent = {};
-  
-  edges.forEach(edge => {
-    const [parent, child] = edge.split('->');
-    if (!childToParent[child]) {
-      childToParent[child] = parent;
-    }
-  });
-  
   function buildNode(node) {
     const nodeTree = {};
     edges.forEach(edge => {

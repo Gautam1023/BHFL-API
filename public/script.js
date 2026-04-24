@@ -14,7 +14,7 @@ async function submitData() {
   }
   
   try {
-    const response = await fetch('/bfhl', {
+    const response = await fetch('/api/bfhl', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
