@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BFHL API Interface</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>BFHL API Interface</h1>
+    
+    <div class="input-section">
+      <label for="dataInput">Enter node strings (one per line or comma-separated):</label>
+      <textarea id="dataInput" rows="10" placeholder="A->B&#10;A->C&#10;B->D&#10;X->Y&#10;Y->Z&#10;Z->X"></textarea>
+      <button id="submitBtn" onclick="submitData()">Submit</button>
+    </div>
+    
+    <div id="error" class="error" style="display: none;"></div>
+    
+    <div id="result" class="result" style="display: none;">
+      <h2>Response</h2>
+      
+      <div class="section">
+        <h3>User Info</h3>
+        <p><strong>User ID:</strong> <span id="userId"></span></p>
+        <p><strong>Email:</strong> <span id="emailId"></span></p>
+        <p><strong>Roll Number:</strong> <span id="rollNumber"></span></p>
+      </div>
+      
+      <div class="section">
+        <h3>Summary</h3>
+        <p><strong>Total Trees:</strong> <span id="totalTrees"></span></p>
+        <p><strong>Total Cycles:</strong> <span id="totalCycles"></span></p>
+        <p><strong>Largest Tree Root:</strong> <span id="largestTreeRoot"></span></p>
+      </div>
+      
+      <div class="section">
+        <h3>Hierarchies</h3>
+        <div id="hierarchies"></div>
+      </div>
+      
+      <div class="section">
+        <h3>Invalid Entries</h3>
+        <div id="invalidEntries"></div>
+      </div>
+      
+      <div class="section">
+        <h3>Duplicate Edges</h3>
+        <div id="duplicateEdges"></div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
